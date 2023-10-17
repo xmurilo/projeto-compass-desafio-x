@@ -11,13 +11,16 @@ import ButtonForm from '../styledComponents/ButtonFormStyled/ButtonForm.styled';
 import Form from '../styledComponents/Form/Form.styled';
 import useInput from '../../hooks/validateForm';
 import InputRegisterWrraper from './InputRegisterWrapper.styled';
-
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '../../services/firebaseConfig';
 const InputsRegister: FC = () => {
   const router = useNavigate();
 
+  // * Roles for Inputs
   const isNotEmpty = (value: string): boolean => value.trim() !== '';
   const isEmail = (value: string): boolean => value.includes('@');
 
+  // * Select States
   const [isDropdownVisible, setIsDropdownVisible] = useState<Boolean>(false);
   const [optionSelect, setOptionSelect] = useState<String>('');
   const [isTouch, setIsTouch] = useState<Boolean>(false);
@@ -103,11 +106,16 @@ const InputsRegister: FC = () => {
 
   const selectHasError = !optionSelect && isTouch;
 
-  const handleSumbmit = (e: any): void => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const handleSumbmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!formIsValid) {
       return;
     }
+    createUserWithEmailAndPassword(enteredEmail, enteredPassword);
+
     router('/login');
   };
 
@@ -137,56 +145,56 @@ const InputsRegister: FC = () => {
 
   return (
     <>
-      <Form onSubmit={handleSumbmit} className="form_register">
-        <div className="container_logo">
-          <img src={Logo} alt="Logo" />
-          <h2 className="title_register">Cadastre-se no UOLkut</h2>
+      <Form onSubmit={handleSumbmit} className='form_register'>
+        <div className='container_logo'>
+          <img src={Logo} alt='Logo' />
+          <h2 className='title_register'>Cadastre-se no UOLkut</h2>
         </div>
         <InputRegisterWrraper>
           <CustomInputWrapper>
             <div>
               <CustomInput
                 type={'email'}
-                placeholder="E-mail"
+                placeholder='E-mail'
                 value={enteredEmail}
                 className={emailClasses}
                 onChange={emailChangeHandler}
                 onBlur={emailBlurHandler}
                 required
               />
-              {emailHasError && <p className="errorText">E-mail inválido</p>}
+              {emailHasError && <p className='errorText'>E-mail inválido</p>}
             </div>
 
             <div>
               <CustomInput
                 type={'password'}
-                placeholder="Senha"
+                placeholder='Senha'
                 value={enteredPassword}
                 className={passwordClasses}
                 onChange={passwordChangeHandler}
                 onBlur={passwordBlurHandler}
                 required
               />
-              {passwordHasError && <p className="errorText">Este campo não pode ficar vazio</p>}
+              {passwordHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
             </div>
 
             <div>
               <CustomInput
-                type="text"
-                placeholder="Nome"
+                type='text'
+                placeholder='Nome'
                 value={enteredName}
                 className={nameClasses}
                 onChange={nameInputChandHandler}
                 onBlur={nameInputBlurHandler}
                 required
               />
-              {nameInputIsInvalid && <p className="errorText">Este campo não pode ficar vazio</p>}
+              {nameInputIsInvalid && <p className='errorText'>Este campo não pode ficar vazio</p>}
             </div>
-            <div className="column_1">
+            <div className='column_1'>
               <div>
                 <CustomInput
-                  type="text"
-                  placeholder="Nascimento"
+                  type='text'
+                  placeholder='Nascimento'
                   value={enteredBirthDate}
                   maxLength={8}
                   className={birthDateClasses}
@@ -194,57 +202,57 @@ const InputsRegister: FC = () => {
                   onBlur={birthDateBlurHandler}
                   required
                 />
-                {birthDateHasError && <p className="errorText">Este campo não pode ficar vazio</p>}
+                {birthDateHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
               </div>
               <div>
                 <CustomInput
-                  type="text"
-                  placeholder="Profissão"
+                  type='text'
+                  placeholder='Profissão'
                   value={enteredProfession}
                   className={professionClasses}
                   onChange={professionChangeHandler}
                   onBlur={professionBlurHandler}
                   required
                 />
-                {professionHasError && <p className="errorText">Este campo não pode ficar vazio</p>}
+                {professionHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
               </div>
             </div>
-            <div className="column_2">
+            <div className='column_2'>
               <div>
                 <CustomInput
-                  type="text"
-                  placeholder="País"
+                  type='text'
+                  placeholder='País'
                   value={enteredCountry}
                   className={countryClasses}
                   onChange={countryChangeHandler}
                   onBlur={countryBlurHandler}
                   required
                 />
-                {countryHasError && <p className="errorText">Este campo não pode ficar vazio</p>}
+                {countryHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
               </div>
 
               <div>
                 <CustomInput
-                  type="text"
-                  placeholder="Cidade"
+                  type='text'
+                  placeholder='Cidade'
                   value={enteredCity}
                   className={cityClasses}
                   onChange={cityChangeHandler}
                   onBlur={cityBlurHandler}
                   required
                 />
-                {cityHasError && <p className="errorText">Este campo não pode ficar vazio</p>}
+                {cityHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
               </div>
             </div>
             <Select onClick={toggleDropdown} className={optionClasses}>
-              <span className="show_status">
+              <span className='show_status'>
                 {!optionSelect && 'Relacionamento'}
                 {optionSelect && optionSelect}
               </span>
               {isDropdownVisible && <ListOption getOption={getOption} />}
             </Select>
             <ButtonFormWrapper>
-              <ButtonForm className="button_form_register">Criar Conta</ButtonForm>
+              <ButtonForm className='button_form_register'>Criar Conta</ButtonForm>
             </ButtonFormWrapper>
           </CustomInputWrapper>
         </InputRegisterWrraper>
