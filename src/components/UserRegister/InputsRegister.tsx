@@ -11,8 +11,10 @@ import ButtonForm from '../styledComponents/ButtonFormStyled/ButtonForm.styled';
 import Form from '../styledComponents/Form/Form.styled';
 import useInput from '../../hooks/validateForm';
 import InputRegisterWrraper from './InputRegisterWrapper.styled';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
+
 const InputsRegister: FC = () => {
   const router = useNavigate();
 
@@ -106,16 +108,35 @@ const InputsRegister: FC = () => {
 
   const selectHasError = !optionSelect && isTouch;
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
-
-  const handleSumbmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSumbmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!formIsValid) {
       return;
     }
-    createUserWithEmailAndPassword(enteredEmail, enteredPassword);
-
+    await createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+      .then(userCredential => {
+        console.log(userCredential);
+        // * Adicionar o resto das propriedades ✅
+        const newUser = {
+          id: userCredential.user.uid,
+          name: enteredName,
+          email: enteredEmail,
+          password: enteredPassword,
+          birthDate: enteredBirthDate,
+          country: enteredCountry,
+          city: enteredCity,
+          profession: enteredProfession,
+          relationship: optionSelect,
+        };
+        fetch('http://localhost:3333/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newUser),
+        });
+      })
+      .catch(err => {
+        alert(err);
+      });
     router('/login');
   };
 
