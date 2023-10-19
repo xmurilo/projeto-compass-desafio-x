@@ -1,7 +1,6 @@
-import { FC } from "react";
-import { Outlet } from "react-router-dom";
-import MainNavigation from "../components/Header/MainNavigation";
-import styled from "styled-components";
+import { FC } from 'react';
+import MainNavigation from '../components/Header/MainNavigation';
+import styled from 'styled-components';
 
 const MainContainer = styled.main`
   display: flex;
@@ -14,16 +13,17 @@ const MainContainer = styled.main`
     align-items: flex-start;
     column-gap: 2rem;
   }
-
 `;
 
-const RootLayout: FC = () => {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
     <>
       <MainNavigation />
-      <MainContainer>
-        <Outlet />
-      </MainContainer>
+      <MainContainer>{children}</MainContainer>
     </>
   );
 };
