@@ -8,51 +8,37 @@ import ButtonFormWrapper from '../styledComponents/ButtonFormStyled/ButtonFormWr
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
+import Cookies from 'js-cookie';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [isLoading, setIsLoading] = useState<boolean>();
+
   const router = useNavigate();
 
-  // const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setIsLoading(true);
     await signInWithEmailAndPassword(auth, email, password)
-      .then(user => {
-        console.log(user);
-        // * Procurar lib de cookies
-        // * Salvar Access token nos cookies 
-        // * Salvar uid nos cookies
-        // * na tela User useEffect com função fetch(method:"get") para buscar dados do usuario no ID 
+      .then(async userCredential => {
+        const user = userCredential.user;
+        const token = await user.getIdToken();
+        Cookies.set('uid', user.uid, { expires: 10 });
+        Cookies.set('accessToken', token, { expires: 10 });
         router('/user');
       })
       .catch(err => {
-        alert(err);
+        console.log(err.code);
+        if (err.code === 'auth/invalid-login-credentials') {
+          alert('E-mail ou senha inválidos');
+          setIsLoading(false);
+        }
       });
   };
 
-  // if (loading) {
-  //   return (
-  //     <p
-  //       style={{
-  //         width: '100vw',
-  //         height: '100vh',
-  //         backgroundColor: '#000',
-  //         color: 'white',
-  //         display: 'flex',
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //       }}
-  //     >
-  //       Carregando
-  //     </p>
-  //   );
-  // }
-
-  // if (user) {
-  //   console.log(user);
-  // }
+  if (isLoading) return <h1>Carregando...</h1>;
 
   return (
     <Form className='formLogin' onSubmit={handleLogin}>
