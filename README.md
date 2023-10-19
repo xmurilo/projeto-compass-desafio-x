@@ -16,10 +16,8 @@ UOLkut is a Compass UOL challenge, which aims to apply and improve the skills ac
 
 | Name      | GitHub | Linkedin     |
 |-----------|-------|------------|
-| Ana   | <a href="https://github.com/AnaQuezia06">Github/Ana</a>     | <a href="https://www.linkedin.com/in/ana-qu%C3%A9zia-b276561a9/"> Linkedin/ Ana </a>  |
-| Gabriel    | <a href="https://github.com/Zorkador">Github/Gabriel</a>    | <a href="https://www.linkedin.com/in/gabriel-duarte-6472b519a"> Linkedin/Gabriel </a> |
 | Murilo |   <a href="https://github.com/xmurilo">Github/Murilo</a>   | <a href="https://www.linkedin.com/in/murilo-silva-a85b7526b/"> Linkedin/Murilo </a> |
-| Thalles    | <a href="https://github.com/thallesquevedo">Github/Thalles</a>    | <a href="https://www.linkedin.com/in/thalles-bernardo-quevedo-ribeiro243/"> Linkedin/Thalles </a> |
+
 
 <h2>💠 Core Technologies</h2>
 <div align="center">
@@ -41,6 +39,8 @@ UOLkut is a Compass UOL challenge, which aims to apply and improve the skills ac
 | React-scripts | 5.0.1 |
 | styled-components | 6.0.8|
 | typescript | 4.9.5 |
+| js-cookie | 3.0.5 |
+| JSON Server | 0.17.4 |
 
 <h2>⭐ Functionalities</h2>
 
@@ -88,20 +88,29 @@ UOLkut is a Compass UOL challenge, which aims to apply and improve the skills ac
 
 <h3>🎲 Running the project</h3>
 
+
 ```bash
 # Clone this repository
-$ git clone https://github.com/thallesquevedo/projeto-compass_uolkut-grupo_7.git
+$ git clone https://github.com/xmurilo/projeto-compass-desafio-x.git
 
 # Access the project folder in the terminal/cmd
-$ cd projeto-compass_uolkut-grupo_7
+$ cd projeto-compass-desafio-x
 
-# Install the dependencies
+# First you need for simulate a Database, install JSON Server with global scope
+$ npm install -g json-server
+
+# After this install the rest dependencies for running the project
 $ npm install
 
 # Run the application in development mode
 $ npm start
 
 # The server will start at port:3000 - access http://localhost:3000
+
+# Run the server on the port 3333
+$ json-server --watch src/mock/db.json --port 3333
+
+# With this you can run the project
 ```
 
 <h2>🤝 Acknowledgements</h2>
