@@ -116,7 +116,6 @@ const InputsRegister: FC = () => {
     await createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
       .then(userCredential => {
         console.log(userCredential);
-        // * Adicionar o resto das propriedades ✅
         const newUser = {
           id: userCredential.user.uid,
           name: enteredName,
