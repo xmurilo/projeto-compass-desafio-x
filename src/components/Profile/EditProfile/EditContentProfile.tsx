@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Container from '../../UI/Container/Container.styled';
 import CardProfileEditProfile from './CardEditProfile';
 import BoxShadowContentUI from '../../UI/Content/BoxShadowContentUI';
+import { useApi } from '../../../context/apiContext';
 
 const EditContentProfile: React.FC = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<Boolean>(false);
@@ -24,58 +25,61 @@ const EditContentProfile: React.FC = () => {
   };
   const router = useNavigate();
 
+  const userData = useApi();
+  // console.log(userData);
+
   return (
-    <Container className="container_edit_profile">
+    <Container className='container_edit_profile'>
       <CardProfileEditProfile />
 
-      <BoxShadowContentUI className="container_edit">
-        <Form className="form_edit">
-          <h1 className="title_edit_profile">Editar informações</h1>
+      <BoxShadowContentUI className='container_edit'>
+        <Form className='form_edit'>
+          <h1 className='title_edit_profile'>Editar informações</h1>
           <CustomInputWrapper>
             <InputWraperEdit>
-              <div className="column_1">
+              <div className='column_1'>
                 <CustomInput
-                  type="text"
-                  placeholder="Profissão"
-                  className="input_edit_profession"
-                  value={'Programador'}
+                  type='text'
+                  placeholder='Profissão'
+                  className='input_edit_profession'
+                  value={userData.profession}
                 />
                 <CustomInput
-                  type="text"
-                  placeholder="Nome"
-                  className="input_name_edit"
-                  value={'Gabriel Barbosa'}
+                  type='text'
+                  placeholder='Nome'
+                  className='input_name_edit'
+                  value={userData.name}
                 />
                 <CustomInput
-                  type="text"
-                  placeholder="Cidade"
-                  className="input_city_edit"
-                  value={'São Paulo'}
+                  type='text'
+                  placeholder='Cidade'
+                  className='input_city_edit'
+                  value={userData.country}
                 />
                 <CustomInput
-                  type="text"
-                  placeholder="País"
-                  className="input_country_edit"
-                  value={'Brasil'}
+                  type='text'
+                  placeholder='País'
+                  className='input_country_edit'
+                  value={userData.country}
                 />
                 <CustomInput
-                  type="text"
-                  placeholder="Nascimento"
+                  type='text'
+                  placeholder='Nascimento'
                   maxLength={8}
-                  className="input_birth_date_edit"
-                  value={'01/01/2000'}
+                  className='input_birth_date_edit'
+                  value={userData.birthDate}
                 />
-                <CustomInput type="password" placeholder="Senha" className="input_password_edit" />
+                <CustomInput type='password' placeholder='Senha' className='input_password_edit' />
                 <CustomInput
-                  type="password"
-                  placeholder="Repetir senha"
-                  className="input_repeat_password_edit"
+                  type='password'
+                  placeholder='Repetir senha'
+                  className='input_repeat_password_edit'
                 />
               </div>
 
-              <div className="column_2">
-                <Select onClick={toggleDropdown} className="select_edit">
-                  <span className="show_status">
+              <div className='column_2'>
+                <Select onClick={toggleDropdown} className='select_edit'>
+                  <span className='show_status'>
                     {!optionSelect && 'Solteiro'}
                     {optionSelect && optionSelect}
                   </span>
@@ -85,7 +89,7 @@ const EditContentProfile: React.FC = () => {
             </InputWraperEdit>
           </CustomInputWrapper>
         </Form>
-        <ButtonForm onClick={() => router('/user')} className="button_form_edit">
+        <ButtonForm onClick={() => router('/user')} className='button_form_edit'>
           Salvar
         </ButtonForm>
       </BoxShadowContentUI>
