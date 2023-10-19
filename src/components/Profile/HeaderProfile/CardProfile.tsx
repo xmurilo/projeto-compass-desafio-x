@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import ContentUI from "../../UI/Content/ContentUI";
+import React from 'react';
+import styled from 'styled-components';
+import ContentUI from '../../UI/Content/ContentUI';
+import { useApi } from '../../../context/apiContext';
 
 const CardProfileContainer = styled.div`
   height: 16.25rem;
@@ -29,15 +30,20 @@ const CardProfileContainer = styled.div`
 `;
 
 const CardProfile: React.FC = () => {
+  const userData = useApi();
+  // console.log(userData);
+  
   return (
     <ContentUI>
       <CardProfileContainer>
         <img
-          src="https://w7.pngwing.com/pngs/900/441/png-transparent-avatar-face-man-boy-male-profile-smiley-avatar-icon.png"
-          alt=""
+          src='https://w7.pngwing.com/pngs/900/441/png-transparent-avatar-face-man-boy-male-profile-smiley-avatar-icon.png'
+          alt=''
         />
-        <p className="name">Gabriel Barbosa</p>
-        <p className="currStatus">Solteiro, Brasil</p>
+        <p className='name'>{userData.name}</p>
+        <p className='currStatus'>
+          {userData.relationship}, {userData.country}
+        </p>
       </CardProfileContainer>
     </ContentUI>
   );
