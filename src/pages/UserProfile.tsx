@@ -1,72 +1,67 @@
-import { FC } from "react";
-import HeaderProfile from "../components/Profile/HeaderProfile/HeaderProfile";
+import { FC, useEffect } from 'react';
+import HeaderProfile from '../components/Profile/HeaderProfile/HeaderProfile';
 
-import SearchBar from "../components/Header/SearchBar";
+import SearchBar from '../components/Header/SearchBar';
 
-import FriendsProfileContainer from "../components/Profile/FriendsProfile/FriendsProfile";
-import FriendsNavbar from "../components/Profile/FriendsProfile/FriendsNavbar";
-import FriendsGrid from "../components/Profile/FriendsProfile/FriendsGrid";
+import FriendsProfileContainer from '../components/Profile/FriendsProfile/FriendsProfile';
+import FriendsNavbar from '../components/Profile/FriendsProfile/FriendsNavbar';
+import FriendsGrid from '../components/Profile/FriendsProfile/FriendsGrid';
 
-import ContentProfileContainer from "../components/Profile/ContentProfile/ContentProfile";
-import TopContent from "../components/Profile/ContentProfile/TopContent";
-import BottomContent from "../components/Profile/ContentProfile/BottomContent";
+import ContentProfileContainer from '../components/Profile/ContentProfile/ContentProfile';
+import TopContent from '../components/Profile/ContentProfile/TopContent';
+import BottomContent from '../components/Profile/ContentProfile/BottomContent';
 
-import ComunityProfileContainer from "../components/Profile/ComunityProfile/ComunityProfile";
-import ComunityNavbar from "../components/Profile/ComunityProfile/ComunityNavBar";
-import ComunityGrid from "../components/Profile/ComunityProfile/ComunityGrid";
+import ComunityProfileContainer from '../components/Profile/ComunityProfile/ComunityProfile';
+import ComunityNavbar from '../components/Profile/ComunityProfile/ComunityNavBar';
+import ComunityGrid from '../components/Profile/ComunityProfile/ComunityGrid';
 
-import styled from "styled-components";
-const MainContainer = styled.button`
-  display: grid;
-  background-color: transparent;
-  border: none;
-  grid-template-areas: "friends" "content" "comunity";
-  gap: 2.5rem;
-
-  .content {
-    grid-area: content;
-  }
-
-  .friends {
-    grid-area: friends;
-  }
-
-  .comunity {
-    grid-area: comunity;
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-areas: "content friends" "content comunity";
-    margin-top: 3.5rem;
-    gap: 2rem;
-
-    .content {
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    }
-  }
-`;
+import Cookies from 'js-cookie';
+import { ContainerUserProfile } from '../components/styledComponents/ProfilePageStyled/ContainerUserProfile';
 
 const UserProfile: FC = () => {
+
+  // * Preciso pensar melhor aqui
+  // useEffect(() => {
+  //   const uid = Cookies.get('uid');
+  //   const accessToken = Cookies.get('accessToken');
+
+  //   if (uid) {
+  //     fetch(`http://localhost:3333/users/${uid}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     })
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         // console.log(data);
+  //       })
+  //       .catch(err => {
+  //         alert(err);
+  //       });
+  //   }
+  // }, []);
+
   return (
     <>
       <SearchBar isHeader={false} />
       <HeaderProfile />
-      <MainContainer>
-        <ContentProfileContainer className="content">
+      <ContainerUserProfile>
+        <ContentProfileContainer className='content'>
           <TopContent />
           <BottomContent />
         </ContentProfileContainer>
 
-        <FriendsProfileContainer className="friends">
+        <FriendsProfileContainer className='friends'>
           <FriendsNavbar />
           <FriendsGrid />
         </FriendsProfileContainer>
 
-        <ComunityProfileContainer className="comunity">
+        <ComunityProfileContainer className='comunity'>
           <ComunityNavbar />
           <ComunityGrid />
         </ComunityProfileContainer>
-      </MainContainer>
+      </ContainerUserProfile>
     </>
   );
 };
