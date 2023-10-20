@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import PerceptionLiked from "./PerceptionLiked";
+import icon from "../../../assets/icons/Triangle.svg"
 import DataContent from "./DataContent";
+import { useApi } from "../../../context/apiContext";
 
 const TopContentContainer = styled.div`
   display: flex;
@@ -97,11 +99,12 @@ const TopContentContainer = styled.div`
 `;
 
 const TopContent: React.FC = () => {
+  const userData = useApi();
   return (
     <TopContentContainer>
-      <h4>Boa Tarde, Gabriel Barbosa</h4>
+      <h4>Boa Tarde, {userData.name}</h4>
       <div className="bubbleImg">
-        <img src={require("../../../assets/icons/Triangle.svg").default} />
+        <img src={icon} />
         <p>Programar sem café é igual poeta sem poesia.</p>
       </div>
       <PerceptionLiked />
