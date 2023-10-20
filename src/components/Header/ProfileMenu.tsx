@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { useApi } from '../../context/apiContext';
 
 const ProfileMenuContainer = styled.div`
   display: flex;
@@ -56,18 +57,19 @@ const ProfileMenuContainer = styled.div`
 `;
 
 const ProfileMenu: React.FC = () => {
+  const userData = useApi();
   return (
     <ProfileMenuContainer>
       <img
-        className="photo"
-        src="https://w7.pngwing.com/pngs/900/441/png-transparent-avatar-face-man-boy-male-profile-smiley-avatar-icon.png"
-        alt=""
+        className='photo'
+        src='https://w7.pngwing.com/pngs/900/441/png-transparent-avatar-face-man-boy-male-profile-smiley-avatar-icon.png'
+        alt=''
       />
-      <span>Gabriel Barbosa</span>
+      <span>{userData.name}</span>
       <img
-        className="dropdown"
-        src={require("../../assets/icons/dropdownIcon.svg").default}
-        alt=""
+        className='dropdown'
+        src={require('../../assets/icons/dropdownIcon.svg').default}
+        alt=''
       />
     </ProfileMenuContainer>
   );
