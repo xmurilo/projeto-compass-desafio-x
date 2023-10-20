@@ -12,75 +12,149 @@ import Container from '../../UI/Container/Container.styled';
 import CardProfileEditProfile from './CardEditProfile';
 import BoxShadowContentUI from '../../UI/Content/BoxShadowContentUI';
 import { useApi } from '../../../context/apiContext';
+import Cookies from 'js-cookie';
 
 const EditContentProfile: React.FC = () => {
+  const userData = useApi();
+
   const [isDropdownVisible, setIsDropdownVisible] = useState<Boolean>(false);
-  const [optionSelect, setOptionSelect] = useState<String>('');
+  const [optionSelect, setOptionSelect] = useState('');
+
+  const [editedData, setEditedData] = useState({
+    name: userData.name,
+    profession: userData.profession,
+    email: userData.email,
+    city: userData.city,
+    country: userData.country,
+    birthDate: userData.birthDate,
+    relationship: userData.relationship,
+    password: userData.password,
+    repeatPassword: '',
+  });
+
+  const handleEditData = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+    setEditedData({
+      ...editedData,
+      [name]: value,
+      relationship: optionSelect,
+    });
+  };
 
   const toggleDropdown = (): void => {
     setIsDropdownVisible(!isDropdownVisible);
   };
   const getOption = (value: string): void => {
     setOptionSelect(value);
+    setEditedData({
+      ...editedData,
+      relationship: value,
+    });
   };
-  const router = useNavigate();
 
-  const userData = useApi();
-  // console.log(userData);
+  // const hasError =
+  //   !editedData.birthDate ||
+  //   editedData.name === '' ||
+  //   editedData.profession === '' ||
+  //   editedData.city === '' ||
+  //   editedData.country === '' ||
+  //   editedData.relationship === '';
+
+  const handleEdit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    // if (hasError) {
+    //   alert('Preencha todos os campos');
+    //   return;
+    // }
+    const uid = Cookies.get('uid');
+    const accessToken = Cookies.get('accessToken');
+    fetch(`http://localhost:3333/users/${uid}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedData),
+    }).then(res => {
+      console.log(editedData);
+      console.log(res);
+
+      if (res.ok) {
+        return res.json();
+      } else new Error('Falha ao atualizar os dados do usuário');
+    });
+  };
 
   return (
     <Container className='container_edit_profile'>
       <CardProfileEditProfile />
 
       <BoxShadowContentUI className='container_edit'>
-        <Form className='form_edit'>
+        <Form onSubmit={handleEdit} className='form_edit'>
           <h1 className='title_edit_profile'>Editar informações</h1>
           <CustomInputWrapper>
             <InputWraperEdit>
               <div className='column_1'>
                 <CustomInput
                   type='text'
+                  name='profession'
                   placeholder='Profissão'
                   className='input_edit_profession'
-                  value={userData.profession}
+                  onChange={handleEditData}
+                  defaultValue={userData.profession}
                 />
                 <CustomInput
                   type='text'
                   placeholder='Nome'
+                  name='name'
                   className='input_name_edit'
-                  value={userData.name}
+                  onChange={handleEditData}
+                  defaultValue={userData.name}
                 />
                 <CustomInput
                   type='text'
                   placeholder='Cidade'
+                  name='city'
                   className='input_city_edit'
-                  value={userData.country}
+                  onChange={handleEditData}
+                  defaultValue={userData.city}
                 />
                 <CustomInput
                   type='text'
                   placeholder='País'
+                  name='country'
                   className='input_country_edit'
-                  value={userData.country}
+                  onChange={handleEditData}
+                  defaultValue={userData.country}
                 />
                 <CustomInput
-                  type='text'
+                  type='date'
                   placeholder='Nascimento'
+                  name='birthDate'
                   maxLength={8}
                   className='input_birth_date_edit'
-                  value={userData.birthDate}
+                  onChange={handleEditData}
+                  defaultValue={userData.birthDate}
                 />
-                <CustomInput type='password' placeholder='Senha' className='input_password_edit' />
+                <CustomInput
+                  type='password'
+                  placeholder='Senha'
+                  className='input_password_edit'
+                  onChange={handleEditData}
+                  defaultValue={userData.password}
+                />
                 <CustomInput
                   type='password'
                   placeholder='Repetir senha'
                   className='input_repeat_password_edit'
+                  onChange={handleEditData}
                 />
               </div>
 
               <div className='column_2'>
                 <Select onClick={toggleDropdown} className='select_edit'>
                   <span className='show_status'>
-                    {!optionSelect && 'Solteiro'}
+                    {!optionSelect && userData.relationship}
                     {optionSelect && optionSelect}
                   </span>
                   {isDropdownVisible && <ListOption getOption={getOption} />}
@@ -88,10 +162,8 @@ const EditContentProfile: React.FC = () => {
               </div>
             </InputWraperEdit>
           </CustomInputWrapper>
+          <ButtonForm className='button_form_edit'>Salvar</ButtonForm>
         </Form>
-        <ButtonForm onClick={() => router('/user')} className='button_form_edit'>
-          Salvar
-        </ButtonForm>
       </BoxShadowContentUI>
     </Container>
   );
