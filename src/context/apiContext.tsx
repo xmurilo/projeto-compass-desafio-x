@@ -17,7 +17,8 @@ interface IUserData {
   name: string;
   email: string;
   password: string;
-  birthDate: number;
+  birthDate: string;
+  city: string;
   country: string;
   profession: string;
   relationship: string;
@@ -25,11 +26,9 @@ interface IUserData {
 
 export const ApiProvider: React.FC<IApi> = ({ children }) => {
   const [userData, setUserData] = useState<IUserData>({} as IUserData);
-
+  const uid = Cookies.get('uid');
+  const accessToken = Cookies.get('accessToken');
   useEffect(() => {
-    const uid = Cookies.get('uid');
-    const accessToken = Cookies.get('accessToken');
-
     if (uid && accessToken) {
       fetch(`http://localhost:3333/users/${uid}`, {
         method: 'GET',
@@ -51,7 +50,7 @@ export const ApiProvider: React.FC<IApi> = ({ children }) => {
           console.error('Error fetching user data:', error);
         });
     }
-  }, []);
+  }, [uid, accessToken]);
 
   return <ApiContext.Provider value={userData}>{children}</ApiContext.Provider>;
 };
