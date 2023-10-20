@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-
+import React from 'react';
+import styled from 'styled-components';
+import { useApi } from '../../../context/apiContext';
+import { splitBirthDate } from '../../../utils/splitBirthDate';
 const DataContentContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,28 +15,36 @@ const DataContentContainer = styled.div`
 `;
 
 const DataContent: React.FC = () => {
+  const userData = useApi();
+  const birthDate = splitBirthDate(userData?.birthDate?.toString());
+
   return (
     <DataContentContainer>
       <p>
-        <span>Relacionamento:</span>Solteiro
+        <span>Relacionamento:</span>
+        {userData.relationship}
       </p>
       <p>
-        <span>Aniverário:</span>21 de julho
+        <span>Aniverário:</span>
+        {birthDate}
       </p>
       <p>
         <span>Idade:</span>22
       </p>
       <p>
-        <span>Quem sou eu:</span>Programador
+        <span>Quem sou eu:</span>
+        {userData.profession}
       </p>
       <p>
         <span>Moro:</span>Guarantã
       </p>
       <p>
-        <span>País:</span>Brasil
+        <span>País:</span>
+        {userData.country}
       </p>
       <p>
-        <span>Cidade:</span>São Paulo
+        <span>Cidade:</span>
+        {userData.city}
       </p>
     </DataContentContainer>
   );
