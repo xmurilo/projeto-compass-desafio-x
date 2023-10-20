@@ -5,7 +5,7 @@ import Form from '../styledComponents/Form/Form.styled';
 import CustomInput from '../UI/InputUI/CustomInput';
 import ButtonForm from '../styledComponents/ButtonFormStyled/ButtonForm.styled';
 import ButtonFormWrapper from '../styledComponents/ButtonFormStyled/ButtonFormWrapper.styled';
-
+import { CircularProgress } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
 import Cookies from 'js-cookie';
@@ -14,15 +14,14 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(async userCredential => {
+    await signInWithEmailAndPassword(auth, email, password).then(async userCredential => {
         const user = userCredential.user;
         const token = await user.getIdToken();
         Cookies.set('uid', user.uid, { expires: 10 });
@@ -38,7 +37,7 @@ const LoginForm: React.FC = () => {
       });
   };
 
-  if (isLoading) return <h1>Carregando...</h1>;
+  if (isLoading) return <CircularProgress size={70} sx={{ color: '#ed6d25' }} />;
 
   return (
     <Form className='formLogin' onSubmit={handleLogin}>
