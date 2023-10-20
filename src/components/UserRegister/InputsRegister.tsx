@@ -11,6 +11,7 @@ import ButtonForm from '../styledComponents/ButtonFormStyled/ButtonForm.styled';
 import Form from '../styledComponents/Form/Form.styled';
 import useInput from '../../hooks/validateForm';
 import InputRegisterWrraper from './InputRegisterWrapper.styled';
+import { CircularProgress } from '@mui/material';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
@@ -18,14 +19,17 @@ import { auth } from '../../services/firebaseConfig';
 const InputsRegister: FC = () => {
   const router = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // * Roles for Inputs
   const isNotEmpty = (value: string): boolean => value.trim() !== '';
   const isEmail = (value: string): boolean => value.includes('@');
 
   // * Select States
-  const [isDropdownVisible, setIsDropdownVisible] = useState<Boolean>(false);
-  const [optionSelect, setOptionSelect] = useState<String>('');
-  const [isTouch, setIsTouch] = useState<Boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [optionSelect, setOptionSelect] = useState('');
+  const [isTouch, setIsTouch] = useState(false);
+
 
   const toggleDropdown = (): void => {
     setIsDropdownVisible(!isDropdownVisible);
@@ -113,9 +117,11 @@ const InputsRegister: FC = () => {
     if (!formIsValid) {
       return;
     }
+    setIsLoading(true);
     await createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
       .then(userCredential => {
         console.log(userCredential);
+
         const newUser = {
           id: userCredential.user.uid,
           name: enteredName,
@@ -132,12 +138,27 @@ const InputsRegister: FC = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newUser),
         });
+        setIsLoading(false);
+        router('/login');
       })
       .catch(err => {
         alert(err);
+        setIsLoading(false);
       });
-    router('/login');
   };
+
+  if (isLoading)
+    return (
+      <CircularProgress
+        size={70}
+        sx={{
+          color: '#ed6d25',
+          position: 'relative',
+          top: '35%',
+          left: '40%',
+        }}
+      />
+    );
 
   const emailClasses = emailHasError ? 'input_register_email invalid' : 'input_register_email';
 
@@ -213,15 +234,15 @@ const InputsRegister: FC = () => {
             <div className='column_1'>
               <div>
                 <CustomInput
-                  type='text'
-                  placeholder='Nascimento'
+                  type='date'
                   value={enteredBirthDate}
-                  maxLength={8}
+            
                   className={birthDateClasses}
                   onChange={birthDateChangeHandler}
                   onBlur={birthDateBlurHandler}
                   required
                 />
+
                 {birthDateHasError && <p className='errorText'>Este campo não pode ficar vazio</p>}
               </div>
               <div>
