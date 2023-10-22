@@ -21,6 +21,10 @@ const CustomInputWrapper = styled.div`
   input:focus {
     outline: none;
   }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+  }
 
   .invalid {
     border: 1px solid #ff0000;
