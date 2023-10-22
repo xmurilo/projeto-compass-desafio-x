@@ -4,8 +4,7 @@
 <p>
 UOLkut is a Compass UOL challenge, which aims to apply and improve the skills acquired throughout the Scholarship Program (PB). This project involves creating a modern social media platform
 <p>
-<p>The project was initially for screens such as 360px and 1920px and adapted for respective screens</p>
-<p></p>
+<p>The project was initially for screens such as 360px and 1920px and adapted for the respective screens, it has the functionality to register and log in with the registered data, to authenticate the user Firebase was used</p>
 
 <h2> 📈 Objective</h2>
 <p>The main objective of the UOLkut project is to provide participants in the Compass UOL Scholarship Program with the opportunity to put into practice the knowledge acquired in programming, interface design and web development. Through this challenge, we hope to promote practical learning and skill development in a real project environment.</p>
