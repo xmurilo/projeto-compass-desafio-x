@@ -1,5 +1,4 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import CustomInput from '../../UI/InputUI/CustomInput';
 import CustomInputWrapper from '../../styledComponents/CustomInputWrapper/CustomInputWrapper.styled';
 import Form from '../../styledComponents/Form/Form.styled';
@@ -7,38 +6,23 @@ import InputWraperEdit from '../../Profile/EditProfile/InputWrapperEdit.styled';
 import Select from '../../styledComponents/SelectStyled/Select.styled';
 import ListOption from '../../styledComponents/SelectStyled/ListOption';
 import ButtonForm from '../../styledComponents/ButtonFormStyled/ButtonForm.styled';
-import { useState } from 'react';
 import Container from '../../UI/Container/Container.styled';
 import CardProfileEditProfile from './CardEditProfile';
 import BoxShadowContentUI from '../../UI/Content/BoxShadowContentUI';
 import { useApi } from '../../../context/apiContext';
 import Cookies from 'js-cookie';
+import { IUserData } from '../../../context/apiContext';
 
 const EditContentProfile: React.FC = () => {
   const userData = useApi();
-
-  const [isDropdownVisible, setIsDropdownVisible] = useState<Boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [optionSelect, setOptionSelect] = useState('');
 
-  const [editedData, setEditedData] = useState({
-    name: userData.name,
-    profession: userData.profession,
-    email: userData.email,
-    city: userData.city,
-    country: userData.country,
-    birthDate: userData.birthDate,
-    relationship: userData.relationship,
-    password: userData.password,
-    repeatPassword: '',
-  });
+  const [editedData, setEditedData] = useState<IUserData | {}>({});
 
   const handleEditData = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setEditedData({
-      ...editedData,
-      [name]: value,
-      relationship: optionSelect,
-    });
+    setEditedData(prevState => ({ ...prevState, [name]: value }));
   };
 
   const toggleDropdown = (): void => {
@@ -46,39 +30,27 @@ const EditContentProfile: React.FC = () => {
   };
   const getOption = (value: string): void => {
     setOptionSelect(value);
-    setEditedData({
-      ...editedData,
-      relationship: value,
-    });
+    setEditedData(prevState => ({ ...prevState, relationship: value }));
   };
-
-  // const hasError =
-  //   !editedData.birthDate ||
-  //   editedData.name === '' ||
-  //   editedData.profession === '' ||
-  //   editedData.city === '' ||
-  //   editedData.country === '' ||
-  //   editedData.relationship === '';
 
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    // if (hasError) {
-    //   alert('Preencha todos os campos');
-    //   return;
-    // }
     const uid = Cookies.get('uid');
     const accessToken = Cookies.get('accessToken');
+
+    const newUserData = {
+      ...userData,
+      ...editedData,
+    };
+
     fetch(`http://localhost:3333/users/${uid}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(editedData),
+      body: JSON.stringify(newUserData),
     }).then(res => {
-      console.log(editedData);
-      console.log(res);
-
       if (res.ok) {
         return res.json();
       } else new Error('Falha ao atualizar os dados do usuário');
@@ -162,7 +134,9 @@ const EditContentProfile: React.FC = () => {
               </div>
             </InputWraperEdit>
           </CustomInputWrapper>
-          <ButtonForm className='button_form_edit'>Salvar</ButtonForm>
+          <ButtonForm type='submit' className='button_form_edit'>
+            Salvar
+          </ButtonForm>
         </Form>
       </BoxShadowContentUI>
     </Container>
