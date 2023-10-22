@@ -17,6 +17,8 @@ const DataContentContainer = styled.div`
 const DataContent: React.FC = () => {
   const userData = useApi();
   const birthDate = splitBirthDate(userData?.birthDate?.toString());
+  const year = birthDate.split(' ')[4];
+  const age = new Date().getFullYear() - Number(year);
 
   return (
     <DataContentContainer>
@@ -29,7 +31,8 @@ const DataContent: React.FC = () => {
         {birthDate}
       </p>
       <p>
-        <span>Idade:</span>22
+        <span>Idade:</span>
+        {age}
       </p>
       <p>
         <span>Quem sou eu:</span>
