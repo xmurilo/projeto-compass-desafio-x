@@ -17,5 +17,5 @@ export const splitBirthDate = (dateString?: string): string => {
     'Novembro',
     'Dezembro',
   ];
-  return `${day} de ${monthNames[parseInt(month) - 1]} de ${year}`;
+  return `${day} de ${monthNames[parseInt(month) - 1]}`;
 };
