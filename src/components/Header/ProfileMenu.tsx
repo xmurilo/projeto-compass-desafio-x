@@ -1,63 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useApi } from '../../context/apiContext';
-
-const ProfileMenuContainer = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 12.81rem;
-
-  .photo {
-    width: 2rem;
-    height: 2rem;
-
-    margin-right: 0.81rem;
-    margin-right: 0.31rem;
-    border-radius: 50%;
-  }
-
-  span {
-    display: none;
-    margin-right: 0.25rem;
-  }
-  .dropdown {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  @media (min-width: 480px) {
-    margin-left: 15.81rem;
-  }
-
-  @media (min-width: 768px) {
-    margin-left: 0;
-    .photo {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .photo {
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-    span {
-      display: flex;
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    span {
-      font-size: 1rem;
-    }
-  }
-`;
-
+import arrow from '../../assets/icons/dropdownIcon.svg';
+import { MenuDropdownMobile } from './DropdownMenu/MenuDropdownMobile';
+import ListMenuDropdown from './DropdownMenu/ListMenuDropdown';
+import { ProfileMenuContainer } from './ProfileMenuContainer';
 const ProfileMenu: React.FC = () => {
   const userData = useApi();
+
   return (
     <ProfileMenuContainer>
       <img
@@ -66,11 +15,10 @@ const ProfileMenu: React.FC = () => {
         alt=''
       />
       <span>{userData.name}</span>
-      <img
-        className='dropdown'
-        src={require('../../assets/icons/dropdownIcon.svg').default}
-        alt=''
-      />
+      <img className='dropdown' src={arrow} alt='arrow' />
+      <MenuDropdownMobile>
+        <ListMenuDropdown />
+      </MenuDropdownMobile>
     </ProfileMenuContainer>
   );
 };
