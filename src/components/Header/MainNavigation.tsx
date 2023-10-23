@@ -33,7 +33,7 @@ const MainNavigation: FC = () => {
             </li>
             <li>
               <NavLink onClick={logout} to='/'>
-                Logout
+                Sair
               </NavLink>
             </li>
           </LinksContainer>
