@@ -21,7 +21,7 @@ const CustomInputWrapper = styled.div`
   input:focus {
     outline: none;
   }
-  
+
   input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
   }
@@ -32,11 +32,10 @@ const CustomInputWrapper = styled.div`
   }
   .errorText {
     color: #ff0000;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin: 0;
   }
 
   & .sendCodeInput,
