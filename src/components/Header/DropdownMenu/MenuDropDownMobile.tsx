@@ -4,8 +4,8 @@ export const MenuDropdownMobile = styled.nav`
   position: relative;
 
   & label {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     display: block;
     position: absolute;
     bottom: -25px;
@@ -27,8 +27,8 @@ export const MenuDropdownMobile = styled.nav`
   }
   & label .menu .dropdown {
     display: block;
-    width: 24px;
-    height: 25px;
+    width: 1.5rem;
+    height: 1.563rem;
     background-image: url(${arrow});
     position: absolute;
     top: 35%;
@@ -41,8 +41,8 @@ export const MenuDropdownMobile = styled.nav`
   }
 
   & input:checked ~ .list_menu {
-    width: 135px;
-    height: 208px;
+    width: 8.438rem;
+    height: 13rem;
     background: #fff;
     border-radius: 0px 0px 6px 6px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -72,7 +72,8 @@ export const MenuDropdownMobile = styled.nav`
   }
   & .list_menu .link {
     color: #8d8d8d;
-    margin-left: 10px;
+    margin-left: 0.625rem;
+    transition: 0.3s ease-in-out;
   }
   & .link:hover {
     color: var(--color-primary);
@@ -80,13 +81,20 @@ export const MenuDropdownMobile = styled.nav`
   }
 
   & .button_logout {
-    width: 100px;
+    width: 6.25rem;
+    height: 1.875rem;
     background-color: var(--color-primary);
     color: #fff;
     border: none;
     border-radius: 6px;
     margin: 10px auto auto auto;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+
+  & .button_logout:hover {
+    background-color: #000000;
+    transition: 0.3s;
   }
 
   @media (min-width: 1024px) {
