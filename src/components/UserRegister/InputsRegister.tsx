@@ -112,7 +112,7 @@ const InputsRegister: FC = () => {
 
   const selectHasError = !optionSelect && isTouch;
 
-  const handleSumbmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!formIsValid) {
       return;
@@ -186,7 +186,7 @@ const InputsRegister: FC = () => {
 
   return (
     <>
-      <Form onSubmit={handleSumbmit} className='form_register'>
+      <Form onSubmit={handleSubmit} className='form_register'>
         <div className='container_logo'>
           <img src={Logo} alt='Logo' />
           <h2 className='title_register'>Cadastre-se no UOLkut</h2>
