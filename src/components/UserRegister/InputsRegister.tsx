@@ -20,16 +20,14 @@ const InputsRegister: FC = () => {
   const router = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [emailHasBeenUsed, setEmailHasBeenUsed] = useState(false);
 
-  // * Roles for Inputs
   const isNotEmpty = (value: string): boolean => value.trim() !== '';
   const isEmail = (value: string): boolean => value.includes('@');
 
-  // * Select States
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [optionSelect, setOptionSelect] = useState('');
   const [isTouch, setIsTouch] = useState(false);
-
 
   const toggleDropdown = (): void => {
     setIsDropdownVisible(!isDropdownVisible);
@@ -142,12 +140,13 @@ const InputsRegister: FC = () => {
         router('/login');
       })
       .catch(err => {
-        alert(err);
+        console.log(err);
         setIsLoading(false);
+        setEmailHasBeenUsed(true);
       });
   };
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <CircularProgress
         size={70}
@@ -159,6 +158,7 @@ const InputsRegister: FC = () => {
         }}
       />
     );
+  }
 
   const emailClasses = emailHasError ? 'input_register_email invalid' : 'input_register_email';
 
@@ -184,6 +184,7 @@ const InputsRegister: FC = () => {
 
   const optionClasses = selectHasError ? 'select_register invalid' : 'select_register';
 
+  const emailHasBeenUsedClasses = emailHasBeenUsed ? 'input_register_email invalid' : '';
   return (
     <>
       <Form onSubmit={handleSubmit} className='form_register'>
@@ -194,15 +195,30 @@ const InputsRegister: FC = () => {
         <InputRegisterWrraper>
           <CustomInputWrapper>
             <div>
-              <CustomInput
-                type={'email'}
-                placeholder='E-mail'
-                value={enteredEmail}
-                className={emailClasses}
-                onChange={emailChangeHandler}
-                onBlur={emailBlurHandler}
-                required
-              />
+              {emailHasBeenUsed ? (
+                <>
+                  <CustomInput
+                    type={'email'}
+                    placeholder='E-mail'
+                    value={enteredEmail}
+                    className={emailHasBeenUsedClasses}
+                    onChange={emailChangeHandler}
+                    onBlur={emailBlurHandler}
+                    required
+                  />
+                  <p className='errorText'>E-mail ja esta em uso</p>
+                </>
+              ) : (
+                <CustomInput
+                  type={'email'}
+                  placeholder='E-mail'
+                  value={enteredEmail}
+                  className={emailClasses}
+                  onChange={emailChangeHandler}
+                  onBlur={emailBlurHandler}
+                  required
+                />
+              )}
               {emailHasError && <p className='errorText'>E-mail inválido</p>}
             </div>
 
@@ -236,7 +252,6 @@ const InputsRegister: FC = () => {
                 <CustomInput
                   type='date'
                   value={enteredBirthDate}
-            
                   className={birthDateClasses}
                   onChange={birthDateChangeHandler}
                   onBlur={birthDateBlurHandler}
