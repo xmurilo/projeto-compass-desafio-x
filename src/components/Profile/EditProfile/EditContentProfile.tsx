@@ -12,11 +12,11 @@ import BoxShadowContentUI from '../../UI/Content/BoxShadowContentUI';
 import { useApi } from '../../../context/apiContext';
 import Cookies from 'js-cookie';
 import { IUserData } from '../../../context/apiContext';
-import { Alert, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 const EditContentProfile: React.FC = () => {
   const userData = useApi();
-
+  const [sendData, setSendData] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,8 +45,6 @@ const EditContentProfile: React.FC = () => {
     const accessToken = Cookies.get('accessToken');
 
     if (editedData.password === undefined || editedData.repeatedPassword === undefined) {
-      console.log(editedData.password);
-      console.log(editedData.repeatedPassword);
       setHasError(true);
       setIsLoading(false);
       return;
@@ -71,22 +69,24 @@ const EditContentProfile: React.FC = () => {
       body: JSON.stringify(newUserData),
     }).then(res => {
       if (res.ok) {
+        setSendData(true);
         return res.json();
-      } else new Error('Falha ao atualizar os dados do usuário');
+      } else new Error('Failed to edit user');
     });
   };
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
+      setHasError(false);
     }, 2350);
   }, [isLoading]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setHasError(false);
-    }, 2350);
-  }, [hasError]);
+    if (sendData) {
+      window.location.reload();
+    }
+  }, [sendData]);
 
   if (isLoading) {
     return (
@@ -100,28 +100,6 @@ const EditContentProfile: React.FC = () => {
           color: '#ed6d25',
         }}
       />
-    );
-  }
-
-  if (hasError) {
-    return (
-      <Alert
-        severity='error'
-        sx={{
-          width: '400px',
-          height: '400px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: '1.2rem',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        As senhas não correspondem
-      </Alert>
     );
   }
 
@@ -176,20 +154,44 @@ const EditContentProfile: React.FC = () => {
                   onChange={handleEditData}
                   defaultValue={userData.birthDate}
                 />
-                <CustomInput
-                  type='password'
-                  placeholder='Senha'
-                  name='password'
-                  className='input_password_edit'
-                  onChange={handleEditData}
-                />
-                <CustomInput
-                  type='password'
-                  placeholder='Repetir senha'
-                  className='input_repeat_password_edit'
-                  name='repeatedPassword'
-                  onChange={handleEditData}
-                />
+                {hasError ? (
+                  <>
+                    <CustomInput
+                      type='password'
+                      placeholder='Senha'
+                      name='password'
+                      className='input_password_edit invalid'
+                      onChange={handleEditData}
+                    />
+                    <p className='errorText'>As senhas não correspondem</p>
+                    <CustomInput
+                      type='password'
+                      placeholder='Repetir senha'
+                      className='input_repeat_password_edit invalid'
+                      name='repeatedPassword'
+                      onChange={handleEditData}
+                    />
+                    <p className='errorText'>As senhas não correspondem</p>
+                  </>
+                ) : (
+                  <>
+                    <CustomInput
+                      type='password'
+                      placeholder='Senha'
+                      name='password'
+                      className='input_password_edit'
+                      onChange={handleEditData}
+                    />
+
+                    <CustomInput
+                      type='password'
+                      placeholder='Repetir senha'
+                      className='input_repeat_password_edit'
+                      name='repeatedPassword'
+                      onChange={handleEditData}
+                    />
+                  </>
+                )}
               </div>
 
               <div className='column_2'>
