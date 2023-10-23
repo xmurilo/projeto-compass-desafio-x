@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomInput from '../../UI/InputUI/CustomInput';
 import CustomInputWrapper from '../../styledComponents/CustomInputWrapper/CustomInputWrapper.styled';
 import Form from '../../styledComponents/Form/Form.styled';
@@ -12,13 +12,18 @@ import BoxShadowContentUI from '../../UI/Content/BoxShadowContentUI';
 import { useApi } from '../../../context/apiContext';
 import Cookies from 'js-cookie';
 import { IUserData } from '../../../context/apiContext';
+import { Alert, CircularProgress } from '@mui/material';
 
 const EditContentProfile: React.FC = () => {
   const userData = useApi();
+
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [optionSelect, setOptionSelect] = useState('');
 
-  const [editedData, setEditedData] = useState<IUserData | {}>({});
+  const [editedData, setEditedData] = useState<IUserData>({} as IUserData);
 
   const handleEditData = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -34,10 +39,24 @@ const EditContentProfile: React.FC = () => {
   };
 
   const handleEdit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    setIsLoading(true);
     e.preventDefault();
     const uid = Cookies.get('uid');
     const accessToken = Cookies.get('accessToken');
 
+    if (editedData.password === undefined || editedData.repeatedPassword === undefined) {
+      console.log(editedData.password);
+      console.log(editedData.repeatedPassword);
+      setHasError(true);
+      setIsLoading(false);
+      return;
+    }
+
+    if (editedData.password !== editedData.repeatedPassword) {
+      setHasError(true);
+      setIsLoading(false);
+      return;
+    }
     const newUserData = {
       ...userData,
       ...editedData,
@@ -56,6 +75,55 @@ const EditContentProfile: React.FC = () => {
       } else new Error('Falha ao atualizar os dados do usuário');
     });
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2350);
+  }, [isLoading]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHasError(false);
+    }, 2350);
+  }, [hasError]);
+
+  if (isLoading) {
+    return (
+      <CircularProgress
+        size={70}
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: '#ed6d25',
+        }}
+      />
+    );
+  }
+
+  if (hasError) {
+    return (
+      <Alert
+        severity='error'
+        sx={{
+          width: '400px',
+          height: '400px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: '1.2rem',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        As senhas não correspondem
+      </Alert>
+    );
+  }
 
   return (
     <Container className='container_edit_profile'>
@@ -111,14 +179,15 @@ const EditContentProfile: React.FC = () => {
                 <CustomInput
                   type='password'
                   placeholder='Senha'
+                  name='password'
                   className='input_password_edit'
                   onChange={handleEditData}
-                  defaultValue={userData.password}
                 />
                 <CustomInput
                   type='password'
                   placeholder='Repetir senha'
                   className='input_repeat_password_edit'
+                  name='repeatedPassword'
                   onChange={handleEditData}
                 />
               </div>
