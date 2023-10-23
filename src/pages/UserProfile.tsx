@@ -15,32 +15,9 @@ import ComunityProfileContainer from '../components/Profile/ComunityProfile/Comu
 import ComunityNavbar from '../components/Profile/ComunityProfile/ComunityNavBar';
 import ComunityGrid from '../components/Profile/ComunityProfile/ComunityGrid';
 
-import Cookies from 'js-cookie';
 import { ContainerUserProfile } from '../components/styledComponents/ProfilePageStyled/ContainerUserProfile';
 
 const UserProfile: FC = () => {
-
-  // * Preciso pensar melhor aqui
-  // useEffect(() => {
-  //   const uid = Cookies.get('uid');
-  //   const accessToken = Cookies.get('accessToken');
-
-  //   if (uid) {
-  //     fetch(`http://localhost:3333/users/${uid}`, {
-  //       method: 'GET',
-  //       headers: {
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         // console.log(data);
-  //       })
-  //       .catch(err => {
-  //         alert(err);
-  //       });
-  //   }
-  // }, []);
 
   return (
     <>
