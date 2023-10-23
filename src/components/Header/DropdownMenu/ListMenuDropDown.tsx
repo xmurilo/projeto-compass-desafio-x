@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+
 const ListMenuDropdown: React.FC = () => {
   const router = useNavigate();
   const logout = (): void => {
@@ -18,27 +19,27 @@ const ListMenuDropdown: React.FC = () => {
       </label>
       <ul className='list_menu'>
         <li>
-          <Link className='link' to='/'>
+          <NavLink className='link' to='/'>
             Início
-          </Link>
+          </NavLink>
         </li>
         <span className='line_option'></span>
         <li>
-          <Link className='link' to='/user'>
+          <NavLink className='link' to='/user'>
             Perfil
-          </Link>
+          </NavLink>
         </li>
         <span className='line_option'></span>
         <li>
-          <Link className='link' to='/'>
+          <NavLink className='link' to='/'>
             Comunidades
-          </Link>
+          </NavLink>
         </li>
         <span className='line_option'></span>
         <li>
-          <Link className='link' to='/'>
+          <NavLink className='link' to='/'>
             Jogos
-          </Link>
+          </NavLink>
         </li>
         <span className='line_option'></span>
         <button className='button_logout' onClick={logout}>
