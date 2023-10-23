@@ -15,8 +15,9 @@ interface IApi {
 
 export interface IUserData {
   name: string;
-  email: string;
+  email?: string;
   password: string;
+  repeatedPassword: string;
   birthDate: string;
   city: string;
   country: string;
