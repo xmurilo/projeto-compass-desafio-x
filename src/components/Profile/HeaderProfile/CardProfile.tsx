@@ -31,7 +31,6 @@ const CardProfileContainer = styled.div`
 
 const CardProfile: React.FC = () => {
   const userData = useApi();
-  // console.log(userData);
   
   return (
     <ContentUI>
