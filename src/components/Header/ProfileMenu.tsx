@@ -1,8 +1,8 @@
 import React from 'react';
 import { useApi } from '../../context/apiContext';
 import arrow from '../../assets/icons/dropdownIcon.svg';
-import { MenuDropdownMobile } from './DropdownMenu/MenuDropdownMobile';
-import ListMenuDropdown from './DropdownMenu/ListMenuDropdown';
+import { MenuDropdownMobile } from './DropdownMenu/MenuDropDownMobile';
+import ListMenuDropdown from './DropdownMenu/ListMenuDropDown';
 import { ProfileMenuContainer } from './ProfileMenuContainer';
 const ProfileMenu: React.FC = () => {
   const userData = useApi();
