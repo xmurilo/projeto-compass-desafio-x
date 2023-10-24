@@ -78,7 +78,6 @@ const EditContentProfile: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-      setHasError(false);
     }, 2350);
   }, [isLoading]);
 
