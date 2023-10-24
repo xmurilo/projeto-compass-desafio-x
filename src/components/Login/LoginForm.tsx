@@ -5,7 +5,7 @@ import Form from '../styledComponents/Form/Form.styled';
 import CustomInput from '../UI/InputUI/CustomInput';
 import ButtonForm from '../styledComponents/ButtonFormStyled/ButtonForm.styled';
 import ButtonFormWrapper from '../styledComponents/ButtonFormStyled/ButtonFormWrapper.styled';
-import { Box, CircularProgress, Modal, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
 import Cookies from 'js-cookie';
