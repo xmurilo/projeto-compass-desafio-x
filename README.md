@@ -9,15 +9,18 @@ UOLkut is a Compass UOL challenge, which aims to apply and improve the skills ac
 <h2> 📈 Objective</h2>
 <p>The main objective of the UOLkut project is to provide participants in the Compass UOL Scholarship Program with the opportunity to put into practice the knowledge acquired in programming, interface design and web development. Through this challenge, we hope to promote practical learning and skill development in a real project environment.
 
-This is the second part, The main objective is to implement an API where the user can register, log in with the registered data and edit the data that has been registered
+In the second part of the challenge, the main objective is to implement an API where the user can register, log in with the registered data and edit the data that has been registered
 
 </p>
 
 <h2>👨‍💻 Participants</h2>
 
-| Name   | GitHub                                                 | Linkedin                                                                            |
-| ------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| Murilo | <a href="https://github.com/xmurilo">Github/Murilo</a> | <a href="https://www.linkedin.com/in/murilo-silva-a85b7526b/"> Linkedin/Murilo </a> |
+| Name      | GitHub | Linkedin     |
+|-----------|-------|------------|
+| Ana   | <a href="https://github.com/AnaQuezia06">Github/Ana</a>     | <a href="https://www.linkedin.com/in/ana-qu%C3%A9zia-b276561a9/"> Linkedin/ Ana </a>  |
+| Gabriel    | <a href="https://github.com/Zorkador">Github/Gabriel</a>    | <a href="https://www.linkedin.com/in/gabriel-duarte-6472b519a"> Linkedin/Gabriel </a> |
+| Murilo |   <a href="https://github.com/xmurilo">Github/Murilo</a>   | <a href="https://www.linkedin.com/in/murilo-silva-a85b7526b/"> Linkedin/Murilo </a> |
+| Thalles    | <a href="https://github.com/thallesquevedo">Github/Thalles</a>    | <a href="https://www.linkedin.com/in/thalles-bernardo-quevedo-ribeiro243/"> Linkedin/Thalles </a> |
 
 <h2>💠 Core Technologies</h2>
 <div align="center">
