@@ -56,6 +56,10 @@ This is the second part, The main objective is to implement an API where the use
   <li>
 User data was also registered in json-server</li>
 <hr/>
+<li>The user can edit the information on the Edit Profile screen</li>
+<hr/>
+<li>Added an exit button to the menu and MainNavigation(header)</li>
+<hr/>
 <li>
 Loading between screens has been added</li>
 <hr/>
