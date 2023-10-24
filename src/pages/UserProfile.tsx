@@ -15,7 +15,7 @@ import ComunityProfileContainer from '../components/Profile/ComunityProfile/Comu
 import ComunityNavbar from '../components/Profile/ComunityProfile/ComunityNavBar';
 import ComunityGrid from '../components/Profile/ComunityProfile/ComunityGrid';
 
-import { ContainerUserProfile } from '../components/styledComponents/ProfilePageStyled/ContainerUserProfile';
+import { ContainerUserProfile } from '../components/styledComponents/ProfilePageStyled/ContainerUserProfile.styled';
 
 const UserProfile: FC = () => {
 

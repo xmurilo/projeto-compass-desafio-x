@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LoginFormWrapper } from '../styledComponents/LoginFormStyled/LoginFormWrapper';
+import { LoginFormWrapper } from '../styledComponents/LoginFormStyled/LoginFormWrapper.styled';
 import { Link, useNavigate } from 'react-router-dom';
 import Form from '../styledComponents/Form/Form.styled';
 import CustomInput from '../UI/InputUI/CustomInput';

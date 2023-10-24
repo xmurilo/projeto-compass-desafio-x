@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginHeaderWrapper } from "../styledComponents/LoginHeaderStyled/LoginHeaderWrapper";
+import { LoginHeaderWrapper } from "../styledComponents/LoginHeaderStyled/LoginHeaderWrapper.styled";
 
 const LoginHeader: React.FC = () => {
   return (

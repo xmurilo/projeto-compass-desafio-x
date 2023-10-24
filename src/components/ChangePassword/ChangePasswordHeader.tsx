@@ -1,5 +1,5 @@
 import React from "react";
-import {ChangePasswordHeaderWrapper} from "../styledComponents/ChangePasswordHeaderStyled/ChangePasswordWrapper";
+import {ChangePasswordHeaderWrapper} from "../styledComponents/ChangePasswordHeaderStyled/ChangePasswordWrapper.styled";
 
 const ChangePasswordHeader: React.FC = () => {
     return (

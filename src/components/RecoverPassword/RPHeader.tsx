@@ -1,5 +1,5 @@
 import React from "react";
-import { RPHeaderWrapper } from "../styledComponents/RPHeaderStyled/RPHeaderWrapper";
+import { RPHeaderWrapper } from "../styledComponents/RPHeaderStyled/RPHeaderWrapper.styled";
 
 const RPHeader: React.FC = () => {
   return (

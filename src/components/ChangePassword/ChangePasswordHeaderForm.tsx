@@ -1,6 +1,6 @@
 import ChangePasswordHeader from "./ChangePasswordHeader";
 import ChangePasswordForm from "./ChangePasswordForm";
-import { ChangePasswordHeaderFormWrapper } from "../styledComponents/ChangePasswordHeaderFormStyled.tsx/ChangePasswordHeaderFormWrapper";
+import { ChangePasswordHeaderFormWrapper } from "../styledComponents/ChangePasswordHeaderFormStyled.tsx/ChangePasswordHeaderFormWrapper.styled";
 
 const ChangePasswordHeaderForm = () => {
     return (

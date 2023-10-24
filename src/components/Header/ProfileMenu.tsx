@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApi } from '../../context/apiContext';
 import arrow from '../../assets/icons/dropdownIcon.svg';
-import { MenuDropdownMobile } from './DropdownMenu/MenuDropDownMobile';
+import { MenuDropdownMobile } from './DropdownMenu/MenuDropDownMobile.styled';
 import ListMenuDropdown from './DropdownMenu/ListMenuDropDown';
 import { ProfileMenuContainer } from './ProfileMenuContainer';
 const ProfileMenu: React.FC = () => {
