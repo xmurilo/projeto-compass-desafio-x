@@ -26,7 +26,7 @@ This is the second part, The main objective is to implement an API where the use
   <img width="80" height="80"  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
   <img width="80" height="80"  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
 <img width="80" height="80" src="./public/styled-components.png">
-<img width="80" height="80" src="">
+<img width="80" height="80" src="./public/Type=Default.svg">
 </div>
 
 <h2>📕 Libraries</h2>
