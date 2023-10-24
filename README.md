@@ -69,6 +69,7 @@ Loading between screens has been added</li>
 <hr/>
 <li>Saving the user's uid and access token in Cookies</li>
 </ul>
+<hr/>
 
 <h3>The Menu in the Profile Page</h3>
 <div align="center">
