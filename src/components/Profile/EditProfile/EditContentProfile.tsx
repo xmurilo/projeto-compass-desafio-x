@@ -162,7 +162,9 @@ const EditContentProfile: React.FC = () => {
                       className='input_password_edit invalid'
                       onChange={handleEditData}
                     />
-                    <p className='errorText'>As senhas não correspondem</p>
+                    <p className='errorText' style={{ position: 'relative', bottom: '20px' }}>
+                      As senhas não correspondem
+                    </p>
                     <CustomInput
                       type='password'
                       placeholder='Repetir senha'
@@ -170,7 +172,9 @@ const EditContentProfile: React.FC = () => {
                       name='repeatedPassword'
                       onChange={handleEditData}
                     />
-                    <p className='errorText'>As senhas não correspondem</p>
+                    <p className='errorText' style={{ position: 'relative', bottom: '20px' }}>
+                      As senhas não correspondem
+                    </p>
                   </>
                 ) : (
                   <>
