@@ -8,7 +8,7 @@ const FooterStyled = styled.footer`
   height: 3rem;
   background-color: #fdfeff;
   position: fixed;
-  bottom: 0%;
+  bottom: 0;
   width: 100%;
   p {
     color: var(--color-primary);
